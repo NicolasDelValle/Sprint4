@@ -1,9 +1,8 @@
 import "./App.css";
-import Welcome from "./Welvome";
-import MovieCard from "./components/moviecard";
-import movies from "./data/movies.json";
+import movies from "./api/api";
+
 function App() {
-  let cardMovies = [];
+  /*  let cardMovies = [];
   for (const movie of movies) {
     cardMovies.push(
       <MovieCard
@@ -13,11 +12,13 @@ function App() {
         imgUrl={movie.imgUrl}
       />
     );
-  }
+  } */
   return (
     <div className="App container ">
-      <Welcome name="Peliculas" />
-      <div className="row row-cols-1 row-cols-md-3 g-5 ">{cardMovies}</div>
+      <button onClick={movies}>aver</button>
+      <h1>{process.env.REACT_APP_API_KEY} a</h1>
+      {/* <Welcome name="Peliculas" />
+      <div className="row row-cols-1 row-cols-md-3 g-5 ">{cardMovies}</div> */}
     </div>
   );
 }
