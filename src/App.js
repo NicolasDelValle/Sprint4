@@ -5,10 +5,7 @@ import FrutaItem from "./components/item";
 function App() {
   return (
     <div className="App container">
-      <div className="row">
-        <ColContainer title="Productos disponibles"></ColContainer>
-        <ColContainer title="Carrito de compra"></ColContainer>
-      </div>
+      <div className="row"></div>
     </div>
   );
 }

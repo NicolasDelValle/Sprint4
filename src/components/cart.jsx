@@ -1,4 +1,4 @@
-export default function ColContainer({ title, children }) {
+export default function Cart({ title }) {
   return (
     <div className="col bg-light border m-3">
       <h1 className="fs-3 text">{title}</h1>
