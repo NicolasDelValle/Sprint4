@@ -1,7 +1,7 @@
 import "./App.css";
-import Welcome from "./Welvome";
+
 import MovieCard from "./components/moviecard";
-import movies from "./data/movies.json";
+import movies from "./api/movies.json";
 function App() {
   let cardMovies = [];
   for (const movie of movies) {
@@ -16,7 +16,6 @@ function App() {
   }
   return (
     <div className="App container ">
-      <Welcome name="Peliculas" />
       <div className="row row-cols-1 row-cols-md-3 g-5 ">{cardMovies}</div>
     </div>
   );
