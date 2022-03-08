@@ -1,4 +1,4 @@
-function MovieCard({ title, year, rank, imgUrl }) {
+function MovieCardContainer({ movies }) {
   return (
     <div className="col">
       <div className="card" style={{ width: "18rem" }}>
@@ -15,4 +15,4 @@ function MovieCard({ title, year, rank, imgUrl }) {
   );
 }
 
-export default MovieCard;
+export default MovieCardContainer;

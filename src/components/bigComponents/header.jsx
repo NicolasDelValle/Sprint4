@@ -1,85 +1,40 @@
+import React, { useState, useEffect } from "react";
+import { Carousel } from "react-bootstrap";
+import Api from "../../api/api";
+
 export default function PageHeader() {
+  const [time, setTime] = useState("day");
+  const [movies, setMovies] = useState();
+  useEffect(async () => {
+    const moviesReq = await Api.getTrendingMovies(time);
+    console.log(moviesReq.data.results);
+    setMovies([
+      moviesReq.data.results[0],
+      moviesReq.data.results[1],
+      moviesReq.data.results[2],
+      moviesReq.data.results[3],
+    ]);
+    console.log("esto es movies", movies);
+  }, []);
+
   return (
-    <div
-      id="headerCarrusel"
-      classNameName="carousel slide"
-      data-bs-ride="carousel"
-    >
-      <div className="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#headerCarrusel"
-          data-bs-slide-to="0"
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#headerCarrusel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#headerCarrusel"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div className="carousel-inner">
-        <div className="carousel-item active">
+    <Carousel>
+      {movies?.map((movie) => {
+        <Carousel.Item>
           <img
-            src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/purina-10-datos-curiosos-sobre-los-gatos.png?itok=M2MiS7Mw"
             className="d-block w-100"
-            alt="..."
-          ></img>
-          <div className="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/purina-10-datos-curiosos-sobre-los-gatos.png?itok=M2MiS7Mw"
-            className="d-block w-100"
-            alt="..."
-          ></img>
-          <div className="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/purina-10-datos-curiosos-sobre-los-gatos.png?itok=M2MiS7Mw"
-            className="d-block w-100"
-            alt="..."
-          ></img>
-          <div className="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
-        </div>
-      </div>
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#headerCarrusel"
-        data-bs-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#headerCarrusel"
-        data-bs-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
+            src="https://ca-times.brightspotcdn.com/dims4/default/f246b58/2147483647/strip/true/crop/2048x1108+0+0/resize/840x454!/format/webp/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F12%2Fa5%2F79e097ccf62312d18a025f22ce48%2Fhoyla-recuento-11-cosas-aman-gatos-top-001"
+            alt="Third slide"
+          />
+
+          <Carousel.Caption>
+            <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>;
+      })}
+    </Carousel>
   );
 }
