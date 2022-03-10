@@ -9,7 +9,6 @@ function MoviePage() {
     setMovies(await (await Api.getMovie(params.id)).data);
   }, []);
 
-  useEffect(async () => {}, [movie]);
   /* `url({https://image.tmdb.org/t/p/w500${movie.poster_path}})`border-bottom border-info border-5 */
   return (
     <Container fluid>
@@ -37,7 +36,18 @@ function MoviePage() {
                 fluid={true}
               />
               <div className=" d-flex flex-column text-start">
-                <span className="fs-1 fw-bold text-white ">{movie.title}</span>
+                <div className="d-flex flex-row align-items-baseline">
+                  <span className="fs-2 me-1 fw-bold text-white lh-1 ">
+                    {movie.title}
+                  </span>
+                  <span className="d-flex align-items-center lh-1 pb-4">
+                    <i className="bi bi-star-fill text-warning me-1"></i>
+                    {movie.vote_average}
+                    <span className="fw-light text-secondary ms-1">
+                      ({movie.vote_count})
+                    </span>
+                  </span>
+                </div>
                 <span className="lh-1 w-75">{movie.overview}</span>
               </div>
             </div>

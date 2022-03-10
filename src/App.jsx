@@ -5,17 +5,25 @@ import PageHeader from "./components/bigComponents/header";
 import PageNavBarPhone from "./components/bigComponents/navBarPhone";
 import MoviePage from "./components/pages/moviePage";
 import { Routes, Route, Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import MoviesCardContainer from "./components/movieCardContainer";
 import Api from "./api/api";
 function App() {
   const [movies, setMovies] = useState();
   const [query, setQuery] = useState(" ");
+  const [fullscreen, setFullscreen] = useState(true);
+  const [show, setShow] = useState(false);
+
+  function handleShow() {
+    setFullscreen(true);
+    setShow(true);
+  }
+
+  //llamada, inicial cuando el
   useEffect(async () => {
     setMovies(await Api.getTopRatedMovies());
-    console.log(movies);
   }, []);
-
+  //query
   useEffect(async () => {
     if (query.trim() === "") {
       setMovies(await Api.getTopRatedMovies());
@@ -26,19 +34,29 @@ function App() {
 
   return (
     <div className="App">
-      <PageNavBar />
+      <PageNavBar handleShow={handleShow} />
+      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title className="">
+            Modal
+            <input
+              onChange={(event) => setQuery(event.target.value)}
+              type="text"
+            />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {movies && <MoviesCardContainer movies={movies} />}
+        </Modal.Body>
+      </Modal>
 
       <Routes>
         <Route
           path="/"
           element={
-            <Container fluid className="p-0">
+            <Container fluid className="p-0 ">
               <PageHeader />
-              <input
-                onChange={(event) => setQuery(event.target.value)}
-                type="text"
-              />
-              {movies && <MoviesCardContainer movies={movies} />}
+              <div className="mt-5 mb-5"></div>
             </Container>
           }
         />

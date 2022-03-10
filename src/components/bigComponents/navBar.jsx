@@ -1,48 +1,45 @@
-export default function PageNavBar() {
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Button,
+  Modal,
+} from "react-bootstrap";
+export default function PageNavBar({ handleShow }) {
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container">
-          <a
-            id="App-logo"
-            className="navbar-brand border-bottom border-info pb-0 mb-1 lh-1"
-            href="#"
-          >
-            HACKFLIX
-          </a>
-
-          <button
-            className="navbar-toggler btn btn-lin"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#responsiveNav"
-            aria-controls="responsiveNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            Explorar
-          </button>
-          <div className="collapse navbar-collapse" id="responsiveNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Inicio
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Series
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Peliculas
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand
+          href="#home"
+          className="navbar-brand border-bottom border-info pb-0 mb-1 lh-1"
+        >
+          HACKFLIX
+        </Navbar.Brand>
+        <Nav>
+          <Button className="me-2" onClick={() => handleShow()}>
+            Search
+          </Button>
+        </Nav>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+                Separated link
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
