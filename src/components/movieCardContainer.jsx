@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 function MoviesCardContainer({ movies }) {
-  console.log("container ", movies);
   return (
     <div className="container ">
       <div className="row d-flex justify-content-center">
