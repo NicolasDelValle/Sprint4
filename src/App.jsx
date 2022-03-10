@@ -3,12 +3,17 @@ import "./App.css";
 import PageNavBar from "./components/bigComponents/navBar";
 import PageHeader from "./components/bigComponents/header";
 import PageNavBarPhone from "./components/bigComponents/navBarPhone";
+import MoviePage from "./components/pages/moviePage";
+import { Routes, Route, Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import MoviesCardContainer from "./components/movieCardContainer";
 import Api from "./api/api";
 function App() {
   const [movies, setMovies] = useState();
   const [query, setQuery] = useState(" ");
   useEffect(async () => {
     setMovies(await Api.getTopRatedMovies());
+    console.log(movies);
   }, []);
 
   useEffect(async () => {
@@ -20,20 +25,25 @@ function App() {
   }, [query]);
 
   return (
-    <div className="App" style={{ backgroundColor: "black" }}>
+    <div className="App">
       <PageNavBar />
-      <PageHeader />
-      <input onChange={(event) => setQuery(event.target.value)} type="text" />
-      {movies?.data.results.map((movie) => (
-        <div key={Math.random()}>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt=""
-          />
-          <h1>{movie.title}</h1>
-        </div>
-      ))}
-      <PageNavBarPhone />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Container fluid className="p-0">
+              <PageHeader />
+              <input
+                onChange={(event) => setQuery(event.target.value)}
+                type="text"
+              />
+              {movies && <MoviesCardContainer movies={movies} />}
+            </Container>
+          }
+        />
+        <Route path="movie/:id" element={<MoviePage />} />
+      </Routes>
     </div>
   );
 }
