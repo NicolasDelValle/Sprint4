@@ -16,14 +16,18 @@ export default function PageNavBar({ handleShow }) {
         >
           HACKFLIX
         </Navbar.Brand>
-        <Nav>
-          <Button className="me-2" onClick={() => handleShow()}>
-            Search
+        <Nav className="ms-auto">
+          <Button
+            variant="outline-info"
+            className="ms-5 me-3"
+            onClick={() => handleShow()}
+          >
+            <i class="bi bi-search"></i>
           </Button>
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             <Nav.Link href="#features">Features</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
