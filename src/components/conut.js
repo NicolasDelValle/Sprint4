@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   InputGroup,
@@ -11,7 +11,7 @@ import {
 function Count() {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state);
-  const se
+  const [valueToSet, setValueToSet] = useState(0);
   return (
     <div>
       <Container>
@@ -26,18 +26,18 @@ function Count() {
           <Button
             onClick={() => dispatch({ type: "dec" })}
             variant="outline-secondary"
-          >
-            -
-          </Button>
+          ></Button>
           <Form>
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              onClick={() =>
+                dispatch({ type: "set", payload: Number(valueToSet) })
+              }
+            >
               Set
             </Button>
             <FormControl
-              onSubmit={(event) => {
-                dispatch({ type: "set", payload: event.target.value });
-                console.log(event.target.value);
-              }}
+              onInput={(event) => setValueToSet(event.target.value)}
               aria-label="Example text with two button addons"
             />
           </Form>
