@@ -1,8 +1,12 @@
 import "./App.css";
+import Count from "./components/conut";
 
 function App() {
-  return;
-  <div className="App"></div>;
+  return (
+    <div className="App">
+      <Count />
+    </div>
+  );
 }
 
 export default App;
