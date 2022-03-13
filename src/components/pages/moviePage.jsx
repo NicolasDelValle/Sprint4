@@ -17,7 +17,7 @@ function MoviePage() {
           <div>
             <div className="text-white fs-3 py-1 d-flex flex-row">
               <Link className="text-white me-3 text-decoration-none" to={`/`}>
-                <i class="bi bi-arrow-left"></i>
+                <i className="bi bi-arrow-left"></i>
                 <span className="text-white ms-3">Inicio</span>
               </Link>
             </div>

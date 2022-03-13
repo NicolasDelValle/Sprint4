@@ -6,7 +6,12 @@ import {
   Button,
   Modal,
 } from "react-bootstrap";
-export default function PageNavBar({ handleShow }) {
+import { toggleSearchModal } from "../../actions/commonActions";
+import { useDispatch } from "react-redux";
+
+export default function PageNavBar() {
+  const dispatch = useDispatch();
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -20,9 +25,9 @@ export default function PageNavBar({ handleShow }) {
           <Button
             variant="outline-info"
             className="ms-5 me-3"
-            onClick={() => handleShow()}
+            onClick={() => toggleSearchModal(dispatch)}
           >
-            <i class="bi bi-search"></i>
+            <i className="bi bi-search"></i>
           </Button>
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
