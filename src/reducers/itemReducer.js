@@ -1,4 +1,4 @@
-function taskReducer(state, action) {
+function itemReducer(state, action) {
   switch (action.type) {
     case "dec":
       return state - 1;
@@ -16,4 +16,4 @@ function taskReducer(state, action) {
   }
 }
 
-export default taskReducer;
+export default itemReducer;
