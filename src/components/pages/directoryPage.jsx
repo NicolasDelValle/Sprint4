@@ -8,10 +8,26 @@ import Rating from "@mui/material/Rating";
 
 function DirectoryPage() {
   const [movies, setMovies] = useState();
-
   const [genres, setGenres] = useState();
 
-  const [Ratevalue, setRateValue] = useState(null);
+  const [rateValueFilter, setRateValueFilter] = useState(null);
+  const [yearFilter, setYearFilter] = useState();
+  const [genresFilter, setGenresFilter] = useState();
+
+  useEffect(async () => {
+    if (rateValueFilter === null) {
+      setMovies(await Api.getMoviesWhitFilters(10, yearFilter, genresFilter));
+    } else {
+      setMovies(
+        await Api.getMoviesWhitFilters(
+          rateValueFilter * 2,
+          yearFilter,
+          genresFilter
+        )
+      );
+    }
+    console.log(rateValueFilter * 2, yearFilter, genresFilter);
+  }, [rateValueFilter, yearFilter, genresFilter]);
 
   const dispatch = useDispatch();
 
@@ -47,12 +63,13 @@ function DirectoryPage() {
             >
               <Rating
                 name="simple-controlled"
-                value={Ratevalue}
-                onChange={(event, newRateValue) => {
-                  setRateValue(newRateValue);
+                value={rateValueFilter}
+                onChange={(event, newRateValueFilter) => {
+                  setRateValueFilter(newRateValueFilter);
                 }}
               />
             </Badge>
+
             <Badge
               className="px-2 mx-2 d-flex align-items-center"
               pill
@@ -62,6 +79,7 @@ function DirectoryPage() {
               <select
                 class="form-select mx-3"
                 aria-label="Default select example"
+                onChange={(e) => setYearFilter(e.target.value)}
               >
                 <option value="">Todos</option>
                 {getYearSelectOptions()}
@@ -73,7 +91,11 @@ function DirectoryPage() {
               bg="secondary"
             >
               <span>Genero</span>
-              <select class="form-select" aria-label="Default select example">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                onChange={(e) => setGenresFilter(e.target.value)}
+              >
                 <option value="">Cualquiera</option>
                 {genres &&
                   genres.data.genres.map((genre) => (
