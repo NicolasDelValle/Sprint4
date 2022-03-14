@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import { toggleSearchModal } from "../../actions/commonActions";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function PageNavBar() {
   const dispatch = useDispatch();
@@ -15,39 +16,32 @@ export default function PageNavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand
-          href="#home"
-          className="navbar-brand border-bottom border-info pb-0 mb-1 lh-1"
-        >
-          HACKFLIX
-        </Navbar.Brand>
+        <Link className="text-decoration-none" to={"/"}>
+          <Navbar.Brand
+            href="#home"
+            className="navbar-brand border-bottom border-info pb-0 mb-1 lh-1"
+          >
+            HACKFLIX
+          </Navbar.Brand>
+        </Link>
         <Nav className="ms-auto">
           <Button
             variant="outline-info"
-            className="ms-5 me-3"
+            className="me-3 px-4"
             onClick={() => toggleSearchModal(dispatch)}
           >
             <i className="bi bi-search"></i>
           </Button>
         </Nav>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
+
+        <Nav className="">
+          <Nav.Link>
+            {" "}
+            <Link className="text-decoration-none text-white" to={"/directory"}>
+              Directorio
+            </Link>
+          </Nav.Link>
+        </Nav>
       </Container>
     </Navbar>
   );

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
+import { toggleSearchModal } from "../actions/commonActions";
+import { useDispatch } from "react-redux";
+
 function MoviesCard({
   movieId,
   movieTitle,
@@ -8,6 +11,7 @@ function MoviesCard({
   movieVoteCount,
   moviePosterPath,
 }) {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [scale, setScale] = useState(1);
   const style = {
@@ -17,11 +21,12 @@ function MoviesCard({
   };
 
   return (
-    <div
-      key={Math.random()}
-      className="col pb-4 d-flex justify-content-center "
-    >
-      <Link className="text-decoration-none bg-info" to={`/movie/${movieId}`}>
+    <div className="col pb-4 d-flex justify-content-center ">
+      <Link
+        onClick={() => toggleSearchModal(dispatch)}
+        className="text-decoration-none bg-info"
+        to={`/movie/${movieId}`}
+      >
         <div
           onMouseEnter={() => setScale(1.1)}
           onMouseLeave={() => setScale(1)}

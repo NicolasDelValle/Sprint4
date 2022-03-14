@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import MoviesCard from "./movieCard";
-function MoviesCardContainer({ movies }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [scale, setScale] = useState(1);
-  const style = { transform: `scale(${scale})`, width: "18rem" };
 
+function MoviesCardContainer({ movies }) {
   return (
     <div className="container mt-5">
       <div className=" row d-flex justify-content-center">
@@ -13,6 +10,7 @@ function MoviesCardContainer({ movies }) {
           (movie) =>
             movie.poster_path && (
               <MoviesCard
+                key={Math.random()}
                 movieId={movie.id}
                 movieTitle={movie.title}
                 movieVoteAverage={movie.vote_average}

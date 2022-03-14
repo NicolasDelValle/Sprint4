@@ -31,9 +31,18 @@ async function getMovie(id) {
   return movie;
 }
 
+async function getGenres() {
+  const generes = await axios(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=es-ES`
+  );
+
+  return generes;
+}
+
 export default {
   getTopRatedMovies,
   getMovieFromSearch,
   getTrendingMovies,
   getMovie,
+  getGenres,
 };
