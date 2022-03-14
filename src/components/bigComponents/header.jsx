@@ -7,12 +7,7 @@ export default function PageHeader() {
   const [movies, setMovies] = useState();
   useEffect(async () => {
     const moviesReq = await Api.getTrendingMovies(time);
-    setMovies([
-      moviesReq.data.results[0],
-      moviesReq.data.results[1],
-      moviesReq.data.results[2],
-      moviesReq.data.results[3],
-    ]);
+    setMovies([moviesReq[0], moviesReq[1], moviesReq[2], moviesReq[3]]);
   }, []);
 
   return (

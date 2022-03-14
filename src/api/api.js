@@ -3,25 +3,27 @@ import axios from "axios";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 async function getTrendingMovies(time) {
-  const movies = await axios(
+  const { data } = await axios(
     `https://api.themoviedb.org/3/trending/movie/${time}?api_key=${API_KEY}`
   );
-  return movies;
+
+  return data?.results || [];
 }
 
 async function getTopRatedMovies(page) {
-  const movies = await axios(
+  const { data } = await axios(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=es-ES&page=${page}`
   );
 
-  return movies;
+  return data?.results || [];
 }
 
 async function getMovieFromSearch(query, page) {
-  const movies = await axios(
+  const { data } = await axios(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}&page=${page}&include_adult=false`
   );
-  return movies;
+
+  return data?.results || [];
 }
 
 async function getMovie(id) {

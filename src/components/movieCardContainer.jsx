@@ -6,7 +6,7 @@ function MoviesCardContainer({ movies }) {
   return (
     <div className="container mt-5">
       <div className=" row d-flex justify-content-center">
-        {movies.data.results.map(
+        {movies?.map(
           (movie) =>
             movie.poster_path && (
               <MoviesCard

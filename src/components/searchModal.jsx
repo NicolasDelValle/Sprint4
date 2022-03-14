@@ -4,86 +4,74 @@ import { toggleSearchModal } from "../actions/commonActions";
 import { Modal, Form, Carousel } from "react-bootstrap";
 import MoviesCardContainer from "./movieCardContainer";
 import Api from "../api/api";
-import Rating from "@mui/material/Rating";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function SearchModal() {
   const [movies, setMovies] = useState();
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+
   const isModalvisible = useSelector((state) => state.common.showSearchModal);
-  const [value, setValue] = useState(null);
   const dispatch = useDispatch();
-
-  const [index, setIndex] = useState(0);
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
 
   //llamada, inicial cuando el
   useEffect(async () => {
-    setMovies(await Api.getTopRatedMovies());
+    setMovies(await Api.getTopRatedMovies(page));
   }, []);
 
   //query
   useEffect(async () => {
     if (query.trim() === "") {
-      setMovies(await Api.getTopRatedMovies());
+      setMovies(await Api.getTopRatedMovies(page));
     } else {
-      setMovies(await Api.getMovieFromSearch(query));
-      setValue(null);
+      setPage(1);
+      setMovies(await Api.getMovieFromSearch(query, page));
     }
   }, [query]);
 
-  return (
-    <Modal
-      show={isModalvisible}
-      fullscreen={true}
-      onHide={() => toggleSearchModal(dispatch)}
-    >
-      <Modal.Header
-        className="d-flex justify-content-between bg-dark text-white"
-        style={{
-          backgroundImage: "linear-gradient(#0DCAF0, #e81dfd)",
-          height: "80px",
-        }}
-      >
-        <Carousel
-          className="w-100 h-100 "
-          interval={null}
-          activeIndex={index}
-          indicators={false}
-          onSelect={handleSelect}
-        >
-          <Carousel.Item>
-            <div className="d-flex justify-content-center">
-              <Form.Control
-                className="bg-dark text-white w-50 d-flex justify-content-center"
-                onChange={(event) => setQuery(event.target.value)}
-                size="lg"
-                type="text"
-                placeholder="Spiderman, Spiderman 2, Spiderman 3, SPIDERMAN!!!"
-              />
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="d-flex justify-content-center">
-              <Rating
-                className="fs-1 mb-2 "
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-            </div>
-          </Carousel.Item>
-        </Carousel>
-      </Modal.Header>
+  const handleFetchData = async () => {
+    setPage((pre) => pre + 1);
+    const nextMovies = await Api.getMovieFromSearch(query, page);
+    setMovies((movies) => [...movies, ...nextMovies]);
+  };
 
-      <Modal.Body style={{ backgroundColor: "black" }}>
-        {movies && <MoviesCardContainer movies={movies} />}
-      </Modal.Body>
-    </Modal>
+  console.log("esto es en el modal :D", movies);
+
+  return (
+    <InfiniteScroll
+      dataLength={movies && movies.length}
+      next={handleFetchData}
+      hasMore={true}
+    >
+      <Modal
+        show={isModalvisible}
+        fullscreen={true}
+        onHide={() => toggleSearchModal(dispatch)}
+      >
+        <Modal.Header
+          className="d-flex justify-content-between bg-dark text-white"
+          style={{
+            height: "80px",
+          }}
+        >
+          <div className="d-flex justify-content-center w-100 h-100">
+            <Form.Control
+              className="bg-dark text-white w-50 d-flex justify-content-center"
+              onChange={(event) => setQuery(event.target.value)}
+              size="lg"
+              type="text"
+              placeholder="Spiderman, Spiderman 2, Spiderman 3, SPIDERMAN!!!"
+            />
+          </div>
+        </Modal.Header>
+
+        <Modal.Body style={{ backgroundColor: "black" }}>
+          {movies && (
+            <MoviesCardContainer key="scrollableDiv" movies={movies} />
+          )}
+        </Modal.Body>
+      </Modal>
+    </InfiniteScroll>
   );
 }
 

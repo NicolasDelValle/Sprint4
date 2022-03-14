@@ -32,7 +32,7 @@ function DirectoryPage() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    setMovies(await Api.getTopRatedMovies());
+    setMovies(await Api.getTopRatedMovies(1));
     setGenres(await Api.getGenres());
   }, []);
 
