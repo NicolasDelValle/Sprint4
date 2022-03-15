@@ -1,12 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
-import { Button, InputGroup, FormControl, Container } from "react-bootstrap";
+import { Button, FormControl, Container } from "react-bootstrap";
 
-function Count() {
+function InputItem() {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state);
   const [valueToSet, setValueToSet] = useState(0);
-  return <Container></Container>;
+  return (
+    <Container>
+      <FormControl
+        placeholder="Agregar item"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </Container>
+  );
 }
 
-export default Count;
+export default InputItem;
