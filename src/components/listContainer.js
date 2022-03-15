@@ -4,7 +4,7 @@ import ItemList from "./ItemList";
 
 function ListContainer() {
   return (
-    <Container>
+    <Container className="w-50 p-5">
       <InputItem />
       <ItemList />
     </Container>
